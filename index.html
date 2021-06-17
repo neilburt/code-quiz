@@ -4,16 +4,32 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" src="./assets/css/style.css" />
-  <title>Code Quiz Home</title>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Code Quiz</title>
 </head>
 <body>
-  <main id="start" class="container">
-    <h1> Welcome to the Quiz!</h1>
-    <a href="./results.html"><button id="results-button">High Scores</button></a>
-    <a href="./quiz.html"><button id="start-button" class="btn">Start Quiz</button></a>
-  </main>
+  <div id="start" class="container">
+    <h1>Welcome to the Quiz!</h1>
+    <p>Answer the questions before the time runs out.</p>
+    <p>Your score is determined by the remaining time which will be deducted by 10 each time a question is answered incorrectly.</p>
+    <button id="results-button">High Scores</button>
+    <button id="start-button" class="btn">Start Quiz</button>
+  </div>
+  <div id="quiz" class="hidden" class="container">
+    <div id="question">Question</div>
+    <div id="answers">
+      <button class="btn">A</button>
+      <button class="btn">B</button>
+      <button class="btn">C</button>
+      <button class="btn">D</button>
+    </div>
+  </div>
+  <div id="timer"></div>
+  <div id="results" class="hidden" class="container">
+    <h1>High Scores</h1>
+    <button id="back">Quiz Home</button>
+  </div>
   
-  <script src="./assets/js/script.js"></script>
+  <script type="text/javascript" src="./assets/js/script.js"></script>
 </body>
 </html>

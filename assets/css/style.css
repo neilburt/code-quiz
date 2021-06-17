@@ -1,0 +1,15 @@
+*, *::before, *::after {
+box-sizing: border-box;
+font-family: "Palatino Linotype", serif;
+text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+#timer {
+  font-family: "LCD", monospace; /* use position to put in corner */
+  font-size: 1.5rem;
+  font-weight: 500;
+}
