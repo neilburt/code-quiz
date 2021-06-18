@@ -11,24 +11,44 @@
   <div id="start" class="container">
     <h1>Welcome to the Quiz!</h1>
     <p>Answer the questions before the time runs out.</p>
-    <p>Your score is determined by the remaining time which will be deducted by 10 each time a question is answered incorrectly.</p>
+    <p>Your score is determined by the remaining time which will be deducted by 10 seconds each time a question is answered incorrectly.</p>
     <button id="results-button">High Scores</button>
     <button id="start-button" class="btn">Start Quiz</button>
   </div>
-  <div id="quiz" class="hidden" class="container">
-    <div id="question">Question</div>
-    <div id="answers">
-      <button class="btn">A</button>
-      <button class="btn">B</button>
-      <button class="btn">C</button>
-      <button class="btn">D</button>
+  <!-- <div id="quiz" class="hidden" class="container"> -->
+    <div id="question1" class="hidden">
+      <h2>Question1</h2>
+      <!-- <div id="answers"> -->
+        <button id="btnA">A.</button>
+        <button id="btnB">B.</button>
+        <button id="btnC">C.</button>
+        <button id="btnD">D.</button>
+      <!-- </div> -->
+    </div>  
+    <div id="question2" class="hidden">
+      <h2>Question2</h2>
+      <!-- <div id="answers"> -->
+        <button id="btnE">E.</button>
+        <button id="btnF">F.</button>
+        <button id="btnG">G.</button>
+        <button id="btnH">H.</button>
+      <!-- </div> -->
     </div>
-  </div>
+    <div id="question3" class="hidden">
+      <h2>Question3</h2>
+      <!-- <div id="answers"> -->
+        <button id="btnI">I.</button>
+        <button id="btnJ">J.</button>
+        <button id="btnK">K.</button>
+        <button id="btnL">L.</button>
+      <!-- </div> -->
+    </div>
   <div id="timer"></div>
   <div id="results" class="hidden" class="container">
     <h1>High Scores</h1>
     <button id="back">Quiz Home</button>
   </div>
+  <form id="initials" class="hidden">Enter Your Initials</form>
   
   <script type="text/javascript" src="./assets/js/script.js"></script>
 </body>
