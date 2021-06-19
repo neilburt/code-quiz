@@ -43,6 +43,11 @@ let questionContent = [
     question: "Which operator assigns value to a variable?",
     correctAns: " =",
     answerArray: [" +", " =", " -", " *"]
+  },
+  question5 = {
+    question: "What element is used to link JavaScript to HTML?",
+    correctAns: " <script>",
+    answerArray: [" <java>", " <script>", " <js>", " <link>"]
   }
 ];
 
@@ -220,7 +225,9 @@ function eraseHighscores() {
 
 function organizeHighscores() {
   highscores.push([finalScore, initialText.value]);
-  highscores.sort((a,b) => b[0] - a[0])
+  highscores.sort((a,b) => b[0] - a[0]);
+  localStorage.setItem("highscores", highscores);
+  initialEnter.classList.add("hidden");
 
   eraseHighscores();
   for (let i = 0; i < highscores.length; i ++) {

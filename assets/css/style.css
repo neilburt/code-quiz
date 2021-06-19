@@ -38,6 +38,12 @@ h2 {
   margin-top: 4rem;
 }
 
+#question {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 ul {
   text-align: center;
   list-style-type: none;
@@ -54,7 +60,7 @@ button {
   font-weight: 600;
 }
 
-input {
+input#initial-text {
   background-color: var(--light);
   color:var(--dark);
   font-weight: 600;
