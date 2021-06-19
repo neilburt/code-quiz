@@ -10,6 +10,7 @@ text-align: center;
 
 #timer {
   font-family: "LCD", monospace; /* use position to put in corner */
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 500;
 }
+

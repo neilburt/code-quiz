@@ -4,52 +4,48 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/css/style.css">
   <title>Code Quiz</title>
 </head>
 <body>
-  <div id="start" class="container">
-    <h1>Welcome to the Quiz!</h1>
-    <p>Answer the questions before the time runs out.</p>
-    <p>Your score is determined by the remaining time which will be deducted by 10 seconds each time a question is answered incorrectly.</p>
-    <button id="results-button">High Scores</button>
-    <button id="start-button" class="btn">Start Quiz</button>
-  </div>
-  <!-- <div id="quiz" class="hidden" class="container"> -->
-    <div id="question1" class="hidden">
-      <h2>Question1</h2>
-      <!-- <div id="answers"> -->
-        <button id="btnA">A.</button>
-        <button id="btnB">B.</button>
-        <button id="btnC">C.</button>
-        <button id="btnD">D.</button>
-      <!-- </div> -->
-    </div>  
-    <div id="question2" class="hidden">
-      <h2>Question2</h2>
-      <!-- <div id="answers"> -->
-        <button id="btnE">E.</button>
-        <button id="btnF">F.</button>
-        <button id="btnG">G.</button>
-        <button id="btnH">H.</button>
-      <!-- </div> -->
-    </div>
-    <div id="question3" class="hidden">
-      <h2>Question3</h2>
-      <!-- <div id="answers"> -->
-        <button id="btnI">I.</button>
-        <button id="btnJ">J.</button>
-        <button id="btnK">K.</button>
-        <button id="btnL">L.</button>
-      <!-- </div> -->
-    </div>
-  <div id="timer"></div>
-  <div id="results" class="hidden" class="container">
-    <h1>High Scores</h1>
-    <button id="back">Quiz Home</button>
-  </div>
-  <form id="initials" class="hidden">Enter Your Initials</form>
-  
-  <script type="text/javascript" src="./assets/js/script.js"></script>
+  <header>
+    <a id="view-scores">View Highscores</a>
+    <span id="timer"></span>
+  </header>
+
+  <main>
+    <section id="start-page">
+      <h1>Welcome to the Quiz!</h1>
+      
+      <p>Answer the questions before the time runs out.</p>
+      <p>Your score is determined at the end of the quiz which will be deducted by 5 seconds for each incorrect answer.</p>
+      
+      <button id="start-button">Start</button>
+    </section>
+
+    <section id="question-page" class="hidden">
+      <h2 id="questions"></h2>
+      <ul id="answers"></ul>
+      <hr>
+      <h3 id="feedback"></h3>
+    </section>
+
+    <section id="initial-enter" class="hidden">
+      <h2>Finished</h2>
+      <h4>final score is <span id="display-score"></span></h4>
+      <h4>initials <span><input type="text" id="initial-text"></span></h4>
+      <button type="submit" id="submit-initial">Submit</button>
+    </section>
+
+    <section id="highscore-page" class="hidden">
+      <h2>Highscores</h2>
+      <div id="highscore-container">
+        
+      </div>
+      <button id="go-back">Restart</button>
+      <button id="clear-highscores">Clear scores</button>
+    </section>
+  </main>
+  <script src="./assets/js/script.js"></script>
 </body>
 </html>

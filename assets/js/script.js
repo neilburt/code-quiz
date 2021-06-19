@@ -1,160 +1,230 @@
-const home = document.getElementById('start')
-const quiz = document.getElementById('quiz');
-const question1El = document.getElementById('question1');
-const question2El = document.getElementById('question2');
-const question3El = document.getElementById('question3');
-const answerBtnA = document.getElementById("btnA");
-const answerBtnB = document.getElementById("btnB");
-const answerBtnC = document.getElementById("btnC");
-const answerBtnD = document.getElementById("btnD");
-const answerBtnE = document.getElementById("btnE");
-const answerBtnF = document.getElementById("btnF");
-const answerBtnG = document.getElementById("btnG");
-const answerBtnH = document.getElementById("btnH");
-const answerBtnI = document.getElementById("btnI");
-const answerBtnJ = document.getElementById("btnJ");
-const answerBtnK = document.getElementById("btnK");
-const answerBtnL = document.getElementById("btnL");
-const answersEl = document.getElementById('answers');
-const results = document.getElementById('results');
-const backBtn = document.getElementById('back');
-const resultsBtn = document.getElementById('results-button');
-const startBtn = document.getElementById('start-button');
-const timer = document.getElementById('timer');
-const container = document.querySelector('.container');
-const hidden = document.querySelector('.hidden');
+let highscores = [];
 
-const question1Btn = [answerBtnA, answerBtnB, answerBtnC, answerBtnD];
+let viewScores = document.getElementById('view-scores');
+let timer = document.getElementById('timer');
 
-var timeInterval;
-var randomQuestions;
-var questionIndex;
-var timeLeft = 30;
+let startPage = document.getElementById('start-page');
+let startButton = document.getElementById('start-button');
 
+let questionPage = document.getElementById('question-page');
+let question = document.getElementById('questions');
+let answers = document.getElementById('answers');
+let feedback = document.getElementById('feedback');
 
-// const questions = [
-//   {question: "What's your name?",
-//   answer: [{option: "Randall", correct: false}],
-//   answer: [{option: "Geoffrey", correct: false}],
-//   answer: [{option: "Poncey", correct: true}],
-//   answer: [{option: "Jasper", correct: false}]},
-  
-//   {question: "What's your quest?",
-//   answer: [{option: "Beer run.", correct: false}],
-//   answer: [{option: "Bathroom.", correct: true}],
-//   answer: [{option: "Stop Ganon.", correct: false}],
-//   answer: [{option: "Go on a walk.", correct: false}]},
-  
-//   {question: "What's your favorite color?",
-//   answer: [{option: "Chartreuse", correct: false}],
-//   answer: [{option: "Viridian", correct: false}],
-//   answer: [{option: "Mauve", correct: false}],
-//   answer: [{option: "Puce", correct: true}]}
-// ];
+let initialEnter = document.getElementById('initial-enter');
+let displayScore = document.getElementById('display-score');
+let initialText = document.getElementById('initial-text');
+let submitInitial = document.getElementById('submit-initial');
 
-function countdown() {
+let highscorePage = document.getElementById('highscore-page');
+let highscoreContainer = document.getElementById('highscore-container');
+let goBack = document.getElementById('go-back');
+let clearHighscores = document.getElementById('clear-highscores');
 
+let pageArray = [startPage, questionPage, initialEnter, highscorePage];
 
-  timeInterval = setInterval(function () {
-    if (timeLeft > 1) {
-      timer.textContent = timeLeft + " seconds remaining";
-      
-      timeLeft--;
-    } else if (timeLeft === 1) {
-      timer.textContent = timeLeft + " second remaining";
-      timeLeft--;
-    } else {
-      timer.textContent = 'Game Over';
-      clearInterval(timeInterval);
-      gameOver();
+let questionContent = [
+  question1 = {
+    question: "Which of the following is NOT a primitive data type?",
+    correctAns: "Object",
+    answerArray: ["String", "Boolean", "Object", "Number"]
+  },
+  question2 = {
+    question: "How does a JavaScript file name end?",
+    correctAns: ".js",
+    answerArray: [".js", ".javascript", ".java", ".script"]
+  },
+  question3 = {
+    question: "In what HTML tag can the JavaScript file reference be nested?",
+    correctAns: "<head> or <body>",
+    answerArray: ["<meta>", "<main>", "<footer>", "<head> or <body>"]
+  },
+  question4 = {
+    question: "Which operator assigns value to a variable?",
+    correctAns: "=",
+    answerArray: ["+", "=", "-", "*"]
+  }
+];
+
+viewScores.addEventListener("click", openHighscorePage);
+startButton.addEventListener("click", startQuiz);
+submitInitial.addEventListener("click", organizeHighscores);
+clearHighscores.addEventListener("click", clearScores);
+goBack.addEventListener("click", openStartPage);
+
+function hideAll() {
+  for(let i = 0; i < pageArray.length; i++) {
+    if(!pageArray[i].classList.contains('hidden')) {
+      pageArray[i].classList.add('hidden')
+    }
+  }
+}
+
+function hideTimer() {
+  if(!timer.classList.contains('hidden')) {
+    timer.classList.add('hidden')
+  }
+}
+
+let isQuizzing = false;
+let quizTime = 60;
+let secondsLeft;
+timer.textContent = 'Time '+ quizTime;
+
+let questionIndex;
+let finalScore = 0;
+let numberCorrect;
+let numberIncorrect;
+
+function questionOrder(arr) {
+  let arrIndex = [];
+  for (let i= 0; i < arr.length; i++) {
+    arrIndex.push(i)
+  }
+  return arrayShuffle(arrIndex);
+}
+
+let questionArrayOrder;
+
+function startQuiz() {
+  numberCorrect = 0;
+  numberIncorrect = 0;
+  questionArrayOrder = questionOrder(questionContent)
+
+  secondsLeft = quizTime;
+  isQuizzing = true;
+  questionIndex = 0;
+  hideAll();
+  questionPage.classList.remove('hidden');
+
+  clearQuestion();
+  questionUpdater(questionContent, questionArrayOrder[questionIndex])
+
+  let timerInterval = setInterval(function() {
+    secondsLeft--;
+    timer.textContent = "Time "+ secondsLeft;
+
+    if(secondsLeft < 0 || !isQuizzing) {
+      clearInterval(timerInterval);
+      secondsLeft = quizTime;
+
+      if(isQuizzing){
+        finalScore = 0;
+        openInitialsPage();
+      }
     }
   }, 1000);
 }
 
-function startQuiz() {
-  clearInterval(timeInterval);
-  countdown();
-  home.classList.add('hidden');
-  question1El.classList.remove('hidden');
+function openInitialsPage() {
+  hideTimer();
+
+  if(finalScore < 1 ) {
+    finalScore = 0;
+  }
+  displayScore.textContent = finalScore;
+  isQuizzing = false;
+  hideAll();
+  initialEnter.classList.remove('hidden');
 }
 
-
-
-function answerQuestion1c() {
-  question1El.classList.add('hidden');
-  question2El.classList.remove('hidden');
+function openHighscorePage() {
+  hideTimer();
+  isQuizzing = false;
+  hideAll;
+  highscorePage.classList.remove('hidden');
 }
 
-function answerQuestion1i() {
-  question1El.classList.add('hidden');
-  question2El.classList.remove('hidden');
-  timeLeft-10;
+function openStartPage() {
+  timer.textContent = "Time "+ secondsLeft;
+  timer.classList.remove('hidden');
+  isQuizzing = false;
+  hideAll();
+  startPage.classList.remove('hidden');
 }
 
-function answerQuestion2c() {
-  question2El.classList.add('hidden');
-  question3El.classList.remove('hidden');
+function arrayShuffle(arr) {
+  return arr.sort(() => Math.random() -0.5);
 }
 
-function answerQuestion2i() {
-  question2El.classList.add('hidden');
-  question3El.classList.remove('hidden');
-  timeLeft-10;
+function questionUpdater(array, index) {
+  question.textContent = array[index].question;
+  let ans;
+  let but;
+  let currentAnswerArray = arrayShuffle(array[index].answerArray);
+
+  for(let i = 0; i < currentAnswerArray.length; i++) {
+    ans = document.createElement('LI');
+    but = document.createElement('button');
+
+    ans.appendChild(but);
+    but.textContent = i + 1 + ". " + currentAnswerArray[i];
+
+    ans.addEventListener("click", questionController);
+
+    answers.appendChild(ans);
+  }
 }
 
-function answerQuestion3c() {
-  question3El.classList.add('hidden');
-  results.classList.remove('hidden');
+function questionController(event){
+  if(event.target.textContent.substring(3) == questionContent[questionArrayOrder[questionIndex]].correctAns) {
+    feedback.textContent ="Correct";
+    numberCorrect++;
+  } else {
+    feedback.textContent = "Incorrect";
+    secondsLeft -= 5;
+    numberIncorrect;
+  }
+  timer.textContent ="Time "+ secondsLeft;
+  setTimeout(function() {
+    feedback.textContent = ""
+  }, 1000)
+
+  clearQuestion();
+
+  questionIndex++;
+
+  if(questionIndex < questionContent.length) {
+    questionUpdater(questionContent, questionArrayOrder[questionIndex]);
+  } else {
+    finalScore = secondsLeft;
+    openInitialsPage();
+  }
 }
 
-function answerQuestion3i() {
-  question3El.classList.add('hidden');
-  results.classList.remove('hidden');
-  timeLeft-10;
-}
-
-function gameOver() {
-  question1El.classList.add('hidden');
-  question2El.classList.add('hidden');
-  question3El.classList.add('hidden');
-  results.classList.remove('hidden');
-}
-
-function viewScores() {
-  home.classList.add('hidden');
-  resultsBtn.classList.add('hidden');
-  results.classList.remove('hidden');
-}
-
-
-function quizHome() {
-  location.reload();
-}
-
-function nextQuestion() {
+function clearQuestion() {
+  question.textContent = "";
   
-  // setUp(randomQuestions[questionIndex]);
+  while(answers.hasChildNodes()) {
+    answers.removeChild(answers.childNodes[0]);
+  }
 }
 
-function answerSelect() {
-
+function addInitial(index) {
+  let newHighscore = document.createElement('div');
+  newHighscore.textContent = index[0] + "  ++++++  " + index[1];
+  newHighscore.classList.add("highscoreInitials");
+  highscoreContainer.appendChild(newHighscore);
 }
 
-answerBtnA.addEventListener("click", answerQuestion1c);
-answerBtnB.addEventListener("click", answerQuestion1i);
-answerBtnC.addEventListener("click", answerQuestion1i);
-answerBtnD.addEventListener("click", answerQuestion1i);
-answerBtnE.addEventListener("click", answerQuestion2i);
-answerBtnF.addEventListener("click", answerQuestion2c);
-answerBtnG.addEventListener("click", answerQuestion2i);
-answerBtnH.addEventListener("click", answerQuestion2i);
-answerBtnI.addEventListener("click", answerQuestion3i);
-answerBtnJ.addEventListener("click", answerQuestion3i);
-answerBtnK.addEventListener("click", answerQuestion3c);
-answerBtnL.addEventListener("click", answerQuestion3i);
+function clearScores() {
+  eraseHighscores();
+  highscores =[];
+}
 
-startBtn.addEventListener("click", startQuiz);
+function eraseHighscores() {
+  while(highscoreContainer.hasChildNodes()) {
+    highscoreContainer.removeChild(highscoreContainer.childNodes[0]);
+  }
+}
 
-resultsBtn.addEventListener("click", viewScores);
+function organizeHighscores() {
+  highscores.push([finalScore, initialText.value]);
+  highscores.sort((a,b) => b[0] - a[0])
 
-backBtn.addEventListener("click", quizHome);
+  eraseHighscores();
+  for (let i = 0; i < highscores.length; i ++) {
+    addInitial(highscores[i]);
+  }
+  openHighscorePage();
+}
