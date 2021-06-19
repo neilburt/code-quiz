@@ -26,23 +26,23 @@ let pageArray = [startPage, questionPage, initialEnter, highscorePage];
 let questionContent = [
   question1 = {
     question: "Which of the following is NOT a primitive data type?",
-    correctAns: "Object",
-    answerArray: ["String", "Boolean", "Object", "Number"]
+    correctAns: " Object",
+    answerArray: [" String", " Boolean", " Object", " Number"]
   },
   question2 = {
     question: "How does a JavaScript file name end?",
-    correctAns: ".js",
-    answerArray: [".js", ".javascript", ".java", ".script"]
+    correctAns: " .js",
+    answerArray: [" .js", " .javascript", " .java", " .script"]
   },
   question3 = {
     question: "In what HTML tag can the JavaScript file reference be nested?",
-    correctAns: "<head> or <body>",
-    answerArray: ["<meta>", "<main>", "<footer>", "<head> or <body>"]
+    correctAns: " <head> or <body>",
+    answerArray: [" <meta>", " <main>", " <footer>", " <head> or <body>"]
   },
   question4 = {
     question: "Which operator assigns value to a variable?",
-    correctAns: "=",
-    answerArray: ["+", "=", "-", "*"]
+    correctAns: " =",
+    answerArray: [" +", " =", " -", " *"]
   }
 ];
 
@@ -202,7 +202,7 @@ function clearQuestion() {
 
 function addInitial(index) {
   let newHighscore = document.createElement('div');
-  newHighscore.textContent = index[0] + "  ++++++  " + index[1];
+  newHighscore.textContent = index[0] + "  ......  " + index[1];
   newHighscore.classList.add("highscoreInitials");
   highscoreContainer.appendChild(newHighscore);
 }

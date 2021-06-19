@@ -2,15 +2,64 @@
 box-sizing: border-box;
 font-family: "Palatino Linotype", serif;
 text-align: center;
+background-color: var(--dark);
+color:var(--light);
+}
+
+:root {
+  --dark: #32586e;
+  --light: #eedac3;
 }
 
 .hidden {
   display: none;
 }
 
+#view-scores {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+}
+
 #timer {
-  font-family: "LCD", monospace; /* use position to put in corner */
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  font-family: "LCD", monospace;
   font-size: 1.25rem;
   font-weight: 500;
 }
 
+h1 {
+  margin-top: 4rem;
+}
+
+h2 {
+  margin-top: 4rem;
+}
+
+ul {
+  text-align: center;
+  list-style-type: none;
+}
+
+button {
+  border-radius: 0.35rem;
+  margin: 0.5rem;
+  padding: 0.35rem;
+  background-color: var(--light);
+  color:var(--dark);
+  font-family: 'Tahoma', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+input {
+  background-color: var(--light);
+  color:var(--dark);
+  font-weight: 600;
+}
+
+div.highscoreInitials {
+  font-size: 1.25rem;
+}
