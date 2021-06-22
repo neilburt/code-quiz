@@ -57,6 +57,7 @@ submitInitial.addEventListener("click", organizeHighscores);
 clearHighscores.addEventListener("click", clearScores);
 goBack.addEventListener("click", openStartPage);
 
+
 function hideAll() {
   for(let i = 0; i < pageArray.length; i++) {
     if(!pageArray[i].classList.contains('hidden')) {
@@ -104,7 +105,8 @@ function startQuiz() {
 
   clearQuestion();
   questionUpdater(questionContent, questionArrayOrder[questionIndex])
-
+  
+  // starts timer with user beginning quiz
   let timerInterval = setInterval(function() {
     secondsLeft--;
     timer.textContent = "Time "+ secondsLeft;
@@ -159,7 +161,7 @@ function questionUpdater(array, index) {
   let currentAnswerArray = arrayShuffle(array[index].answerArray);
 
   for(let i = 0; i < currentAnswerArray.length; i++) {
-    ans = document.createElement('LI');
+    ans = document.createElement('li');
     but = document.createElement('button');
 
     ans.appendChild(but);
@@ -171,6 +173,7 @@ function questionUpdater(array, index) {
   }
 }
 
+// determines and informs user whether or not their answer is correct, issues time penalty for incorrect, clears used questions, sends user to initial-entry if last question is asnwered
 function questionController(event){
   if(event.target.textContent.substring(3) == questionContent[questionArrayOrder[questionIndex]].correctAns) {
     feedback.textContent ="Correct";
@@ -223,6 +226,7 @@ function eraseHighscores() {
   }
 }
 
+// sorts high scores upon initial submission
 function organizeHighscores() {
   highscores.push([finalScore, initialText.value]);
   highscores.sort((a,b) => b[0] - a[0]);
